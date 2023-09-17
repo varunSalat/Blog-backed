@@ -17,9 +17,10 @@ const filter = {};
 dotenv.config();
 const app = express();
 const corsOptions = {
-  origin: "https://blog-website-g6cd.onrender.com/", // Allow requests from this origin
+  origin: "https://blog-website-g6cd.onrender.com",
   credentials: true, // Allow credentials (cookies, etc.)
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
