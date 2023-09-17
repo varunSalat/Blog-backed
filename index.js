@@ -17,7 +17,7 @@ const filter = {};
 dotenv.config();
 const app = express();
 const corsOptions = {
-  origin: "http://localhost:5173", // Allow requests from this origin
+  origin: "https://blog-website-g6cd.onrender.com/", // Allow requests from this origin
   credentials: true, // Allow credentials (cookies, etc.)
 };
 app.use(cors(corsOptions));
