@@ -17,7 +17,7 @@ const filter = {};
 dotenv.config();
 const app = express();
 const corsOptions = {
-  origin: "https://scholarwithtech.netlify.app",
+  origin: "https://blog-website-six-gamma.vercel.app/",
   credentials: true, // Allow credentials (cookies, etc.)
 };
 
