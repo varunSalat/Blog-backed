@@ -17,7 +17,7 @@ const filter = {};
 dotenv.config();
 const app = express();
 const corsOptions = {
-  origin: "http://blog-1.infinityfreeapp.com",
+  origin: "https://scholarwithtech.netlify.app",
   credentials: true, // Allow credentials (cookies, etc.)
 };
 
