@@ -17,7 +17,7 @@ const filter = {};
 dotenv.config();
 const app = express();
 const corsOptions = {
-  origin: "https://blog-website-six-gamma.vercel.app",
+  origin: "http://blog-1.infinityfreeapp.com",
   credentials: true, // Allow credentials (cookies, etc.)
 };
 
