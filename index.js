@@ -17,7 +17,8 @@ const filter = {};
 dotenv.config();
 const app = express();
 const corsOptions = {
-  origin: "http://blog-1.infinityfreeapp.com",
+  origin: "https://varunsalat.com",
+  // origin: "http://localhost:5173",
   credentials: true, // Allow credentials (cookies, etc.)
 };
 
