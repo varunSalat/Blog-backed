@@ -63,7 +63,6 @@ app.get("/api/reg", async (req, res) => {
 //     .status(200)
 //     .json(data);
 // });
-
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
   const userDoc = await User.findOne({ username });
@@ -84,14 +83,14 @@ app.post("/api/login", async (req, res) => {
   const data = { name: userDoc.name, img: userDoc.img };
   const token = Jwt.sign({ username, id: userDoc._id }, process.env.SECRET);
 
-  // Set the "auth" cookie with appropriate attributes
+  // Explicitly set the "auth" cookie
   res.cookie("auth", token, {
-    httpOnly: true, // Make the cookie accessible only via HTTP (not JavaScript)
-    secure: true, // Require HTTPS for secure transmission
-    sameSite: "lax", // Adjust sameSite attribute based on your requirements
-    // Additional attributes like "domain" and "path" can be set if needed
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
   });
 
+  // Return a response indicating success
   return res.status(200).json(data);
 });
 
