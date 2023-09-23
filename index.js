@@ -44,55 +44,55 @@ app.get("/api/reg", async (req, res) => {
   return res.json(newuser);
 });
 
-// app.post("/api/login", async (req, res) => {
-//   const { username, password } = req.body;
-//   const userDoc = await User.findOne({ username });
-//   if (!userDoc) return res.status(400).json("No user found");
-//   const pass = bcrypt.compareSync(password.toString(), userDoc.password);
-//   if (!pass) return res.status(400).json("Password is Wrong!");
-
-//   const data = { name: userDoc.name, img: userDoc.img };
-
-//   const token = Jwt.sign({ username, id: userDoc._id }, process.env.SECRET);
-//   return res
-//     .cookie("auth", token, {
-//       httpOnly: false,
-//       secure: true,
-//       sameSite: false,
-//     })
-//     .status(200)
-//     .json(data);
-// });
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
   const userDoc = await User.findOne({ username });
-
-  if (!userDoc) {
-    return res.status(400).json("No user found");
-  }
-
-  const isPasswordValid = bcrypt.compareSync(
-    password.toString(),
-    userDoc.password
-  );
-
-  if (!isPasswordValid) {
-    return res.status(400).json("Password is Wrong!");
-  }
+  if (!userDoc) return res.status(400).json("No user found");
+  const pass = bcrypt.compareSync(password.toString(), userDoc.password);
+  if (!pass) return res.status(400).json("Password is Wrong!");
 
   const data = { name: userDoc.name, img: userDoc.img };
+
   const token = Jwt.sign({ username, id: userDoc._id }, process.env.SECRET);
-
-  // Explicitly set the "auth" cookie
-  res.cookie("auth", token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "lax",
-  });
-
-  // Return a response indicating success
-  return res.status(200).json(data);
+  return res
+    .cookie("auth", token, {
+      httpOnly: false,
+      secure: true,
+      sameSite: "none",
+    })
+    .status(200)
+    .json(data);
 });
+// app.post("/api/login", async (req, res) => {
+//   const { username, password } = req.body;
+//   const userDoc = await User.findOne({ username });
+
+//   if (!userDoc) {
+//     return res.status(400).json("No user found");
+//   }
+
+//   const isPasswordValid = bcrypt.compareSync(
+//     password.toString(),
+//     userDoc.password
+//   );
+
+//   if (!isPasswordValid) {
+//     return res.status(400).json("Password is Wrong!");
+//   }
+
+//   const data = { name: userDoc.name, img: userDoc.img };
+//   const token = Jwt.sign({ username, id: userDoc._id }, process.env.SECRET);
+
+//   // Explicitly set the "auth" cookie
+//   res.cookie("auth", token, {
+//     httpOnly: true,
+//     secure: true,
+//     sameSite: "lax",
+//   });
+
+//   // Return a response indicating success
+//   return res.status(200).json(data);
+// });
 
 // Blog Routes
 
