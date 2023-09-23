@@ -17,7 +17,8 @@ const filter = {};
 dotenv.config();
 const app = express();
 const corsOptions = {
-  origin: "https://varunsalat.com",
+  // origin: "https://varunsalat.com",
+  origin: "https://scholarwithtech.com",
   // origin: "http://localhost:5173",
   credentials: true, // Allow credentials (cookies, etc.)
 };
