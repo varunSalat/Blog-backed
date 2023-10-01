@@ -17,7 +17,6 @@ const filter = {};
 dotenv.config();
 const app = express();
 const corsOptions = {
-  // origin: "https://varunsalat.com",
   origin: "https://scholarwithtech.com",
   // origin: "http://localhost:5173",
   credentials: true, // Allow credentials (cookies, etc.)
@@ -64,38 +63,6 @@ app.post("/api/login", async (req, res) => {
     .status(200)
     .json(data);
 });
-// app.post("/api/login", async (req, res) => {
-//   const { username, password } = req.body;
-//   const userDoc = await User.findOne({ username });
-
-//   if (!userDoc) {
-//     return res.status(400).json("No user found");
-//   }
-
-//   const isPasswordValid = bcrypt.compareSync(
-//     password.toString(),
-//     userDoc.password
-//   );
-
-//   if (!isPasswordValid) {
-//     return res.status(400).json("Password is Wrong!");
-//   }
-
-//   const data = { name: userDoc.name, img: userDoc.img };
-//   const token = Jwt.sign({ username, id: userDoc._id }, process.env.SECRET);
-
-//   // Explicitly set the "auth" cookie
-//   res.cookie("auth", token, {
-//     httpOnly: true,
-//     secure: true,
-//     sameSite: "lax",
-//   });
-
-//   // Return a response indicating success
-//   return res.status(200).json(data);
-// });
-
-// Blog Routes
 
 app.post("/api/blog", async (req, res) => {
   // Pagination
@@ -123,16 +90,19 @@ app.post("/api/blog", async (req, res) => {
     const blogs = await Blog.find(filter)
       .sort({ createdAt: -1 })
       .skip(skip)
-      .limit(perPage)
-      .populate("author", "name img") // Populate the author field with name and img
-      .exec();
-    const mostBlog = await Blog.find({ isMostViewed: true })
-      .sort({ createdAt: -1 })
-      .limit(10);
-    res.status(200).json({ data: blogs, most: mostBlog, totalCount });
+      .limit(perPage);
+    res.status(200).json({ data: blogs, totalCount });
   } catch (err) {
     res.status(400).json(err);
   }
+});
+
+app.get("/api/mostBlog", async (req, res) => {
+  const mostBlog = await Blog.find({ isMostViewed: true })
+    .sort({ createdAt: -1 })
+    .limit(10);
+
+  res.status(200).json(mostBlog);
 });
 
 app.get("/api/blog/:blogUrl", async (req, res) => {
